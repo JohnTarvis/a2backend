@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://our.company.com/jobSearch.schema.json",
+  "type": "object",
+  "properties": {
+    "post_subject":{
+      "type":"string"
+    },
+    "post_tags": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "user_handle": {
+      "type": "string"
+    }
+  },
+  "required": []
+}
+
