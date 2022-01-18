@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://www.example.com/anon.json",
+  "type": "object",
+  "properties":{
+    "id" : {
+      "type":"integer"
+    },
+    "poster_handle":{
+      "type":"string",
+      "minLength": 1,
+      "maxLength": 31
+    },
+    "post_date":{
+      "type":"string",
+      "Format":"date-time"
+    },
+    "post_body":{
+      "type":"string"
+    },
+    "post_subject":{
+      "type":"string"
+    },
+    "post_tags":{
+      "type":"string"
+    },
+    "admin_post":{
+      "type": "boolean"
+    },
+    "reply_to":{
+      "type":"integer"
+    },
+    "image":{
+      "type":"string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "post_body",
+    "post_subject",
+    "post_tags",
+    "poster_handle"
+  ]
+}

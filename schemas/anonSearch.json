@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://our.company.com/jobSearch.schema.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "handle": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": []
+}
