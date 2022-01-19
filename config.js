@@ -13,7 +13,7 @@ const PORT = +process.env.PORT || 5432;
 function getDatabaseUri() {
   return (process.env.NODE_ENV === "test")
       ? "anonanon_test"
-      : process.env.DATABASE_URL || "anonanon";
+      : process.env.DATABASE_URL || "postgresql-acute-34242";//"anonanon";
 }
 
 // Speed up bcrypt during tests, since the algorithm safety isn't being tested
