@@ -68,7 +68,6 @@ function ensureAdmin(req, res, next) {
 function ensureCorrectAnonOrAdmin(req, res, next) {
   try {
     const anon = res.locals.anon;
-    // console.log(`=======================${anon.is_admin}============================`);
     if (!(anon && (anon.is_admin || anon.handle === req.params.handle))) {
       throw new UnauthorizedError();
     }
