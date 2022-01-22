@@ -56,6 +56,7 @@ static async tagExists(tag){
                FROM tags
                WHERE tag = $1`;
   const results = await db.query(query,[tag]);
+  console.log('results====================',results);
   return results.length > 0;
 }
 
