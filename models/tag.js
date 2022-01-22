@@ -63,12 +63,12 @@ static async tagExists(tag){
 static async incrementSearches(tag) {
   const querySql = `UPDATE tags 
                     SET searches = searches + 1
-                    WHERE tag = ${tag} 
+                    WHERE tag = $1
                     RETURNING id,
                               tag, 
                               searches, 
                               birth_time`;
-  const results = await db.query(querySql);
+  const results = await db.query(querySql,[tag]);
   const result = results.rows[0];
   if (!result) throw new NotFoundError(`COULD NOT UPDATE - No tag: ${tag}`);
   return result;
