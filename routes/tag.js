@@ -52,6 +52,7 @@ router.post("/", async function (req, res, next) {
 ///-----------------------------------------------------------------------GET SPECIFIC TAG BY NAME
 router.get("/:tag", async function (req, res, next) {
   try {
+    console.log('starting.........................................');
     const tag = await Tag.get(req.params.tag);
     return res.json({ tag });
   } catch (err) {

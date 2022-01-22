@@ -25,6 +25,7 @@ class Tag {
 
 ///-----------------------------------------------------------------------CREATE TAG
 static async create(tag) {
+  
   tag = tag.tag;
   if(await this.tagExists(tag)){
     return await this.incrementSearches(tag);
