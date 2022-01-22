@@ -16,48 +16,71 @@ const {
 class Tag {
 
   /**       -=Create a new tag=-
-   * this tag will have 
    * id
-   * ip - hidden from the public
-   * handle - unique and decided by registrant
-   * password
-   * birth_time
-   * is_admin
+   * tag -- name
+   * searches -- how often it's used
+   * birth_time -- when first created
    * */
 
 
-/////////////////////////////////////////////////////////////////////
-
+///-----------------------------------------------------------------------CREATE TAG
 static async create(tag) {
   tag = tag.tag;
-  // console.log('IN TAG MODEL attempting to create tag: ',tag)
-    const birth_time = new Date();
-    const results = await db.query(
-            `INSERT INTO tags (tag,birth_time,searches)
-            VALUES ($1,$2,$3)
-            RETURNING   id,
-                        tag,
-                        searches,
-                        birth_time`,
-        [
-            tag,
-            birth_time,
-            0
-        ],
-    );
-    const result = results.rows[0];
-    return result;
+  if(await this.tagExists(tag)){
+    return await this.incrementSearches(tag);
+  }
+  const birth_time = new Date();
+  const results = await db.query(
+          `INSERT INTO tags (tag,birth_time,searches)
+          VALUES ($1,$2,$3)
+          RETURNING   id,
+                      tag,
+                      searches,
+                      birth_time`,
+      [
+          tag,
+          birth_time,
+          0
+      ],
+  );
+  const result = results.rows[0];
+  return result;
 }
 
-/////////////////////////////////////////////////////////////////////
+///-----------------------------------------------------------------------CHECK IF TAG EXISTS
+static async tagExists(tag){
+  let query = `SELECT id,
+                      tag,
+                      searches,
+                      birth_time
+               FROM tags
+               WHERE tag = $1`;
+  const results = await db.query(query,[tag]);
+  return results.length > 0;
+}
 
+///-----------------------------------------------------------------------INCREMENT SEARCHES
+static async incrementSearches(tag) {
+  const querySql = `UPDATE tags 
+                    SET searches = searches + 1
+                    WHERE tag = ${tag} 
+                    RETURNING id,
+                              tag, 
+                              searches, 
+                              birth_time`;
+  const results = await db.query(querySql);
+  const result = results.rows[0];
+  if (!result) throw new NotFoundError(`COULD NOT UPDATE - No tag: ${tag}`);
+  return result;
+}
+
+///-----------------------------------------------------------------------GET TAG BY PARAMETERS
    static async get(searchFilters = {}){
     let query = `SELECT id,
                         tag,
                         searches,
                         birth_time
                  FROM tags`;
-
     const whereExpressions = [];
     const whereValues = [];
     const filterNames = Object.keys(searchFilters);
@@ -76,8 +99,7 @@ static async create(tag) {
     return results.rows;
   }
 
-/////////////////////////////////////////////////////////////////////
-
+///-----------------------------------------------------------------------UPDATE TAG
   static async update(tag,data) {
     const colNames = Object.keys(data);
     const vals = Object.values(data);
@@ -99,8 +121,7 @@ static async create(tag) {
     return tag;
   }
 
-/////////////////////////////////////////////////////////////////////
-
+///-----------------------------------------------------------------------REMOVE TAG
   static async remove(tag) {
     const results = await db.query(
           `DELETE
@@ -117,5 +138,4 @@ static async create(tag) {
 module.exports = Tag;
 
 
-/////////////////////////////////////////////////////////////////////
 
