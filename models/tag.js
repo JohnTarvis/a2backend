@@ -49,6 +49,7 @@ static async create(tag) {
 
 ///-----------------------------------------------------------------------CHECK IF TAG EXISTS
 static async tagExists(tag){
+  console.log('looking for tag====================');
   let query = `SELECT id,
                       tag,
                       searches,
