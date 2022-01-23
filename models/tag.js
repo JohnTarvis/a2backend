@@ -73,7 +73,10 @@ static async incrementSearches(tag) {
                               birth_time`;
   const results = await db.query(querySql,[tag]);
   const result = results.rows[0];
-  if (!result) throw new NotFoundError(`COULD NOT UPDATE - No tag: ${tag}`);
+  if (!result) {
+    throw new NotFoundError(`COULD NOT UPDATE - No tag: ${tag}`);
+  }
+  console.log('tag found==============================================',result);
   return result;
 }
 
