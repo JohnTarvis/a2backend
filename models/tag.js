@@ -25,6 +25,8 @@ class Tag {
 
 ///-----------------------------------------------------------------------CREATE TAG
 static async create(tag) {
+
+  console.log('LOOING FOR TAG AT START');
   
   tag = tag.tag;
   if(await this.tagExists(tag)){
