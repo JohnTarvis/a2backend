@@ -27,6 +27,7 @@ router.get("/", async function (req, res, next) {
       throw new BadRequestError(errs);
     }
 
+
     // const posts = await Post.findAll(q);
     const posts = await Post.getWith(q);
 
@@ -37,6 +38,8 @@ router.get("/", async function (req, res, next) {
 });
 
 router.post("/", async function (req, res, next) {
+  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxpost");
+
   try {
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
