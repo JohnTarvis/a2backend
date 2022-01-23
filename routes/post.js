@@ -18,7 +18,7 @@ router.get("/", async function (req, res, next) {
   const q = req.query;
   // console.log('req query q=================================',q);
 
-  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxget/");
 
   try {
     const validator = jsonschema.validate(q, postSearchSchema);
