@@ -84,6 +84,7 @@ static async incrementSearches(tag) {
 
 ///-----------------------------------------------------------------------GET TAG BY PARAMETERS
    static async get(searchFilters = {}){
+     console.log('old get============================================');
     let query = `SELECT id,
                         tag,
                         searches,
@@ -139,6 +140,10 @@ static async incrementSearches(tag) {
         [tag]);
     const result = results.rows[0];
     if (!result) throw new NotFoundError(`COULD NOT DELETE - No tag: ${tag}`);
+  }
+
+  static async removeAll(){
+    const query = await db.query('TRUNCATE TABLE tags CASCADE');
   }
 }
 

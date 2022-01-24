@@ -85,5 +85,14 @@ router.delete("/:id", ensureAdmin, async function (req, res, next) {
   }
 });
 
+router.delete("/",async function(req,res,next){
+  try{
+    await Post.removeAll();
+    return res.json({deleted: "...all posts"});
+  } catch{
+    return next(err);
+  }
+});
+
 
 module.exports = router;

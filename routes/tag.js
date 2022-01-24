@@ -35,6 +35,7 @@ router.get("/", async function (req, res, next) {
 ///-----------------------------------------------------------------------CREATE TAG
 router.post("/", async function (req, res, next) {
     try {
+      console.log('creating tag====================================in tag post');
       const validator = jsonschema.validate(req.body, tagNewSchema);
       if (!validator.valid) {
         const errs = validator.errors.map(e => e.stack);
@@ -48,6 +49,7 @@ router.post("/", async function (req, res, next) {
       return next(err);
     }
 });
+
 
 ///-----------------------------------------------------------------------GET SPECIFIC TAG BY NAME
 router.get("/:tag", async function (req, res, next) {
@@ -111,6 +113,14 @@ router.delete("/:id", ensureAdmin, async function (req, res, next) {
   }
 });
 
+router.delete("/", async function (req, res, next) {
+  try {
+    await Tag.removeAll();
+    return res.json({ deleted: "...all tags" });
+  } catch (err) {
+    return next(err);
+  }
+});
 
   
 module.exports = router;

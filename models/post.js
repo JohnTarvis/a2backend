@@ -168,6 +168,10 @@ class Post {
 
     if (!post) throw new NotFoundError(`No post: ${handle}`);
   }
+
+  static async removeAll(){
+    const query = await db.query('TRUNCATE TABLE posts CASCADE');
+  }
 }
 
 

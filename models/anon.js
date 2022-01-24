@@ -241,6 +241,10 @@ class Anon {
 
     if (!anon) throw new NotFoundError(`No anon: ${handle}`);
   }
+
+  static async removeAll(){
+    const query = await db.query('TRUNCATE TABLE anons CASCADE');
+  }
 }
 
 
