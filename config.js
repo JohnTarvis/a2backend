@@ -19,6 +19,12 @@ function getDatabaseUri() {
       //"anonanon";
 }
 
+const AWS_ACCESS_KEY_ID = 'AKIAZSNCDBDQ4GY3ZN5J';
+const AWS_SECRET_ACCESS_KEY = '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';
+
+const S3_REGION='us-west-1';
+const S3_BUCKET='a2uploads';
+
 // Speed up bcrypt during tests, since the algorithm safety isn't being tested
 //
 // WJB: Evaluate in 2021 if this should be increased to 13 for non-test use
@@ -31,7 +37,13 @@ console.log("BCRYPT_WORK_FACTOR".yellow, BCRYPT_WORK_FACTOR);
 console.log("Database:".yellow, getDatabaseUri());
 console.log("---");
 
+
+
 module.exports = {
+  AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY,
+  S3_BUCKET,
+  S3_REGION,
   SECRET_KEY,
   PORT,
   BCRYPT_WORK_FACTOR,
