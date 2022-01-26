@@ -19,7 +19,7 @@ class Post {
    * admin_post - whether or not it was posted by an admin
    * */ 
   
-
+  
   static async create({ poster_handle,
                         post_date,
                         post_body,
