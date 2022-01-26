@@ -18,7 +18,7 @@ router.get("/", async function (req, res, next) {
   const q = req.query;
   // console.log('req query q=================================',q);
 
-  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxget/");
+  // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxget/");
 
   try {
     const validator = jsonschema.validate(q, postSearchSchema);
@@ -38,7 +38,7 @@ router.get("/", async function (req, res, next) {
 });
 
 router.post("/", async function (req, res, next) {
-  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxpost");
+  // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxpost");
   try {
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
