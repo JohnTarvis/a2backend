@@ -69,54 +69,57 @@ router.get("/", async function (req, res, next) {
 
 
 
-// router.post("/", async function (req, res, next) {
-//   try {
-//     const validator = jsonschema.validate(req.body, postNewSchema);
-//     if (!validator.valid) {
-//       const errs = validator.errors.map(e => e.stack);
-//       throw new BadRequestError(errs);
-//     }
-//     const newPost = await Post.create(req.body);
-//     return res.status(201).json({ newPost });
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
-
-app.post('/', upload.single('image'), (req, res, next) => {
+router.post("/", async function (req, res, next) {
   try {
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
-    const post = await Post.create(req.body);
-    post.save(function (err) {
-      if (req.file) {
-        // Upload the images
-        client.upload(req.file.path, {}, function (err, versions, meta) {
-          if (err) { return res.status(400).send({ err: err }) };
-  
-          // Pop off the -square and -standard and just use the one URL to grab the image
-          versions.forEach(function (image) {
-            var urlArray = image.url.split('-');
-            urlArray.pop();
-            var url = urlArray.join('-');
-            post.avatarUrl = url;
-            post.save();
-          });
-  
-          res.send({ post: post });
-        });
-      } else {
-        res.send({ post: post });
-      }
-    })
-    return res.status(201).json({ post });
+    const newPost = await Post.create(req.body);
+    return res.status(201).json({ newPost });
   } catch (err) {
     return next(err);
   }
 });
+
+
+
+
+// app.post('/', upload.single('image'), (req, res, next) => {
+//   try {
+//     const validator = jsonschema.validate(req.body, postNewSchema);
+//     if (!validator.valid) {
+//       const errs = validator.errors.map(e => e.stack);
+//       throw new BadRequestError(errs);
+//     }
+//     const post = await Post.create(req.body);
+//     post.save(function (err) {
+//       if (req.file) {
+//         // Upload the images
+//         client.upload(req.file.path, {}, function (err, versions, meta) {
+//           if (err) { return res.status(400).send({ err: err }) };
+  
+//           // Pop off the -square and -standard and just use the one URL to grab the image
+//           versions.forEach(function (image) {
+//             var urlArray = image.url.split('-');
+//             urlArray.pop();
+//             var url = urlArray.join('-');
+//             post.avatarUrl = url;
+//             post.save();
+//           });
+  
+//           res.send({ post: post });
+//         });
+//       } else {
+//         res.send({ post: post });
+//       }
+//     })
+//     return res.status(201).json({ post });
+//   } catch (err) {
+//     return next(err);
+//   }
+// });
 
 
 
