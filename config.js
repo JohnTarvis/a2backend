@@ -19,8 +19,8 @@ function getDatabaseUri() {
       //"anonanon";
 }
 
-const AWS_ACCESS_KEY_ID = 'AKIAZSNCDBDQ4GY3ZN5J';
-const AWS_SECRET_ACCESS_KEY = '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';
+const AWS_ACCESS_KEY_ID = process.env.S3_ACCESS_KEY_ID;
+const AWS_SECRET_ACCESS_KEY = process.env.S3_SECRET_ACCESS_KEY;
 
 const S3_REGION='us-west-1';
 const S3_BUCKET='a2uploads';
