@@ -13,40 +13,6 @@ const postUpdateSchema = require("../schemas/postUpdate.json");
 const postSearchSchema = require("../schemas/postSearch.json");
 const router = express.Router({ mergeParams: true });
 
-// const Awsapi = require('../api/awsapi');
-
-//////////////////////////////////////////////////////////////////////////////////////
-
-// UPLOADING TO AWS S3
-// const multer  = require('multer');
-// const upload = multer({ dest: 'uploads/' });
-// const Upload = require('s3-uploader');
-
-//////////////////////////////////////////////////////////////////////////////////////
-
-// const client = new Upload(process.env.S3_BUCKET, {
-//   aws: {
-//     path: 'uploads/',
-//     region: process.env.S3_REGION,
-//     acl: 'public-read',
-//     accessKeyId: process.env.S3_ACCESS_KEY_ID,
-//     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY
-//   },
-//   cleanup: {
-//     versions: true,
-//     original: true
-//   },
-//   versions: [{
-//     maxWidth: 400,
-//     aspect: '16:10',
-//     suffix: '-standard'
-//   },{
-//     maxWidth: 300,
-//     aspect: '1:1',
-//     suffix: '-square'
-//   }]
-// });
-
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 
 router.get("/", async function (req, res, next) {
@@ -57,7 +23,6 @@ router.get("/", async function (req, res, next) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
-
 
     // const posts = await Post.findAll(q);
     const posts = await Post.getWith(q);
