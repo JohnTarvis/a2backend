@@ -1,7 +1,7 @@
 import { uploadFile } from 'react-s3';
 
-const S3_BUCKET ='a2uploads';
-const REGION ='us-west-1';
+const S3_BUCKET = 'a2uploads';
+const REGION = 'us-west-1';
 const ACCESS_KEY = process.env.S3_ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = process.env.S3_SECRET_ACCESS_KEY;
 
