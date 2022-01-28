@@ -13,6 +13,8 @@ const postUpdateSchema = require("../schemas/postUpdate.json");
 const postSearchSchema = require("../schemas/postSearch.json");
 const router = express.Router({ mergeParams: true });
 
+const A2FileUpload = require('../aws/api');
+
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 
 router.get("/", async function (req, res, next) {
@@ -33,17 +35,19 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-
 //////////////////////////////////////////////////////////////////////////////////////CREATE POST
 
 router.post("/", async function (req, res, next) {
   try {
-    console.log('reqBody============================================',req.body);
+    
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
+
+    await A2FileUpload(req.body.image);
+
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
   } catch (err) {
