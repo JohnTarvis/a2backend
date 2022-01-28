@@ -38,7 +38,7 @@ router.get("/", async function (req, res, next) {
 
 router.post("/", async function (req, res, next) {
   try {
-    console.log('req============================================',req);
+    console.log('reqBody============================================',req.body);
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
       const errs = validator.errors.map(e => e.stack);
