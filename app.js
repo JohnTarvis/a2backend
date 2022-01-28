@@ -26,7 +26,7 @@ app.use(authenticateJWT);
 app.use("/auth", authRoutes);
 app.use("/anon", anonRoutes);
 app.use("/post", postRoutes);
-app.use('/tag',tagRoutes);
+app.use( "/tag", tagRoutes);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
