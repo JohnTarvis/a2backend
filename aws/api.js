@@ -14,7 +14,7 @@ const config = {
 
 async function A2FileUpload(file){
     uploadFile(file,config)
-        .then(data => console.log(data))
+        .then(data => console.log('data========================================',data))
         .catch(err => console.error(err));
 }
 
