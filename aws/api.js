@@ -18,9 +18,9 @@
 //         .catch(err => console.error(err));
 // }
 
-async function A2FileUpload(file){
-    
-}
+// async function A2FileUpload(file){
 
-export default A2FileUpload;
+// }
+
+// export default A2FileUpload;
 
