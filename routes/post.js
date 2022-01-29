@@ -46,7 +46,7 @@ router.post("/", async function (req, res, next) {
       throw new BadRequestError(errs);
     }
 
-    await A2FileUpload(req.body.image);
+    // await A2FileUpload(req.body.image);
 
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
