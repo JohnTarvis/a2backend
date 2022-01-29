@@ -42,13 +42,13 @@ router.post("/", async function (req, res, next) {
       throw new BadRequestError(errs);
     }
 
-    console.log('in post and the file is========================================',req.file);
+    // console.log('in post and the file is========================================',req.file);
 
 
 
 
-    uploadFile(req.file);
-    req.body.image = req.file.name;
+    uploadFile(req.body.image);
+    req.body.image = req.body.image.name;
 
 
     const newPost = await Post.create(req.body);
