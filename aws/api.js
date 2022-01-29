@@ -1,26 +1,19 @@
-// import { uploadFile } from 'react-s3';
-
-// const S3_BUCKET = 'a2uploads';
-// const REGION = 'us-west-1';
-// const ACCESS_KEY = process.env.S3_ACCESS_KEY_ID;
-// const SECRET_ACCESS_KEY = process.env.S3_SECRET_ACCESS_KEY;
-
-// const config = {
-//     bucketName: S3_BUCKET,
-//     region: REGION,
-//     accessKeyId: ACCESS_KEY,
-//     secretAccessKey: SECRET_ACCESS_KEY,
-// }
-
-// async function A2FileUpload(file){
-//     uploadFile(file,config)
-//         .then(data => console.log('data========================================',data))
-//         .catch(err => console.error(err));
-// }
-
-// async function A2FileUpload(file){
-
-// }
-
-// export default A2FileUpload;
-
+require("dotenv").config();
+const S3 = require("aws-sdk/clients/s3");
+const fs = require("fs");
+const bucketName = process.env.S3_BUCKET;
+const region = process.env.S3_REGION;
+const accessKeyId = process.env.S3_ACCESS_KEY_ID;
+const secretAccessKey = process.env.S3_SECRET_ACCESS_KEY;
+const s3 = new S3({  region,  accessKeyId,  secretAccessKey,});
+function uploadFile(file) {  
+    const fileStream = fs.createReadStream(file.path);  
+    const uploadParams = {    
+        Bucket: bucketName,    
+        Body: fileStream,    
+        Key: file.filename,  
+    };
+    return s3.upload(uploadParams).promise(); 
+    // this will upload file to S3
+}
+module.exports = { uploadFile };

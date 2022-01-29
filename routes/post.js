@@ -13,7 +13,7 @@ const postUpdateSchema = require("../schemas/postUpdate.json");
 const postSearchSchema = require("../schemas/postSearch.json");
 const router = express.Router({ mergeParams: true });
 
-// const A2FileUpload = require('../aws/api');
+// const A2FileUpload = require('../aws/api');1
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 
