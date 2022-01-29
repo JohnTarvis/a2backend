@@ -41,8 +41,14 @@ router.post("/", async function (req, res, next) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
+
+    console.log('in post and the file is========================================',req.file);
+
+
     uploadFile(req.file);
     req.body.image = req.file.name;
+
+
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
   } catch (err) {
