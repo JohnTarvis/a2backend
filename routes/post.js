@@ -25,10 +25,7 @@ router.get("/", async function (req, res, next) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
-
-    // const posts = await Post.findAll(q);
     const posts = await Post.getWith(q);
-
     return res.json({ posts });
   } catch (err) {
     return next(err);
@@ -39,16 +36,12 @@ router.get("/", async function (req, res, next) {
 
 router.post("/", async function (req, res, next) {
   try {
-    
     const validator = jsonschema.validate(req.body, postNewSchema);
-
     if (!validator.valid) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
-
-    uploadFile(req.body.image);
-
+    uploadFile(req.file);
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
   } catch (err) {
