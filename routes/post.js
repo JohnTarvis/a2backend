@@ -13,7 +13,7 @@ const postUpdateSchema = require("../schemas/postUpdate.json");
 const postSearchSchema = require("../schemas/postSearch.json");
 const router = express.Router({ mergeParams: true });
 
-// const A2FileUpload = require('../aws/api');1
+const A2FileUpload = require('../aws/api');
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 
@@ -47,7 +47,7 @@ router.post("/", async function (req, res, next) {
       throw new BadRequestError(errs);
     }
 
-    console.log('in post image=======================================================',req.body.image);
+    // console.log('in post image=======================================================',req.body.image);
     // await A2FileUpload(req.body.image);
 
     const newPost = await Post.create(req.body);

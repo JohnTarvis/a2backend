@@ -84,7 +84,7 @@ static async incrementSearches(tag) {
 
 ///-----------------------------------------------------------------------GET TAG BY PARAMETERS
    static async get(searchFilters = {}){
-     console.log('old get============================================');
+    //  console.log('old get============================================');
     let query = `SELECT id,
                         tag,
                         searches,
