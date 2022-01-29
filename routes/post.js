@@ -45,6 +45,8 @@ router.post("/", async function (req, res, next) {
     console.log('in post and the file is========================================',req.file);
 
 
+
+
     uploadFile(req.file);
     req.body.image = req.file.name;
 
