@@ -41,6 +41,7 @@ router.post("/", async function (req, res, next) {
   try {
     
     const validator = jsonschema.validate(req.body, postNewSchema);
+    
     if (!validator.valid) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
