@@ -34,7 +34,7 @@ router.get("/", async function (req, res, next) {
 
 //////////////////////////////////////////////////////////////////////////////////////CREATE POST
 
-router.post("/", async function (req, res, next) {
+router.post("/",upload.single("image"), async function (req, res, next) {
   try {
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
@@ -42,14 +42,8 @@ router.post("/", async function (req, res, next) {
       throw new BadRequestError(errs);
     }
 
-    // console.log('in post and the file is========================================',req.file);
-
-
-
-
-    // uploadFile(req.body.image);
-    // req.body.image = req.body.image.name;
-
+    const result = await uploadFile(req.file);
+    console.log("S3 response", result);
 
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
