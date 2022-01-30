@@ -15,37 +15,14 @@ const router = express.Router({ mergeParams: true });
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-// UPLOADING TO AWS S3
-// const multer  = require('multer');
-// const upload = multer({ dest: 'uploads/' });
-// const Upload = require('s3-uploader');
+const {uploadFile,getFileStream} = require('../aws/api');
+// const upload = require("../common");
+// const fs = require("fs");
+// const util = require("util");
+// const unlinkFile = util.promisify(fs.unlink);
 
-//////////////////////////////////////////////////////////////////////////////////////
 
-// const client = new Upload(process.env.S3_BUCKET, {
-//   aws: {
-//     path: 'uploads/',
-//     region: process.env.S3_REGION,
-//     acl: 'public-read',
-//     accessKeyId: process.env.S3_ACCESS_KEY_ID,
-//     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY
-//   },
-//   cleanup: {
-//     versions: true,
-//     original: true
-//   },
-//   versions: [{
-//     maxWidth: 400,
-//     aspect: '16:10',
-//     suffix: '-standard'
-//   },{
-//     maxWidth: 300,
-//     aspect: '1:1',
-//     suffix: '-square'
-//   }]
-// });
-
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////GET POST
 
 router.get("/", async function (req, res, next) {
   const q = req.query;
@@ -55,19 +32,14 @@ router.get("/", async function (req, res, next) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
-
-
-    // const posts = await Post.findAll(q);
     const posts = await Post.getWith(q);
-
     return res.json({ posts });
   } catch (err) {
     return next(err);
   }
 });
 
-
-
+//////////////////////////////////////////////////////////////////////////////////////CREATE POST
 
 router.post("/", async function (req, res, next) {
   try {
@@ -76,6 +48,10 @@ router.post("/", async function (req, res, next) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
+
+    const result = await uploadFile(req.body.file);
+    console.log("S3 response", result);
+
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
   } catch (err) {
@@ -83,45 +59,7 @@ router.post("/", async function (req, res, next) {
   }
 });
 
-
-
-
-// app.post('/', upload.single('image'), (req, res, next) => {
-//   try {
-//     const validator = jsonschema.validate(req.body, postNewSchema);
-//     if (!validator.valid) {
-//       const errs = validator.errors.map(e => e.stack);
-//       throw new BadRequestError(errs);
-//     }
-//     const post = await Post.create(req.body);
-//     post.save(function (err) {
-//       if (req.file) {
-//         // Upload the images
-//         client.upload(req.file.path, {}, function (err, versions, meta) {
-//           if (err) { return res.status(400).send({ err: err }) };
-  
-//           // Pop off the -square and -standard and just use the one URL to grab the image
-//           versions.forEach(function (image) {
-//             var urlArray = image.url.split('-');
-//             urlArray.pop();
-//             var url = urlArray.join('-');
-//             post.avatarUrl = url;
-//             post.save();
-//           });
-  
-//           res.send({ post: post });
-//         });
-//       } else {
-//         res.send({ post: post });
-//       }
-//     })
-//     return res.status(201).json({ post });
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
-
-
+//////////////////////////////////////////////////////////////////////////////////////GET POST BY ID
 
 router.get("/:id", async function (req, res, next) {
   try {
@@ -131,6 +69,8 @@ router.get("/:id", async function (req, res, next) {
     return next(err);
   }
 });
+
+//////////////////////////////////////////////////////////////////////////////////////ALTER POST BY ID
 
 router.patch("/:id", ensureAdmin, async function (req, res, next) {
   try {
@@ -147,6 +87,8 @@ router.patch("/:id", ensureAdmin, async function (req, res, next) {
   }
 });
 
+//////////////////////////////////////////////////////////////////////////////////////DELETE POST BY ID
+
 router.delete("/:id", ensureAdmin, async function (req, res, next) {
   try {
     await Post.remove(req.params.id);
@@ -155,6 +97,8 @@ router.delete("/:id", ensureAdmin, async function (req, res, next) {
     return next(err);
   }
 });
+
+//////////////////////////////////////////////////////////////////////////////////////DELETE ALL POSTS
 
 router.delete("/",async function(req,res,next){
   try{
