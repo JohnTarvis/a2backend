@@ -13,7 +13,13 @@ const postUpdateSchema = require("../schemas/postUpdate.json");
 const postSearchSchema = require("../schemas/postSearch.json");
 const router = express.Router({ mergeParams: true });
 
-const {uploadFile} = require('../aws/api');
+//////////////////////////////////////////////////////////////////////////////////////
+
+const {uploadFile,getFileStream} = require('../aws/api');
+const upload = require("../common");
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 
