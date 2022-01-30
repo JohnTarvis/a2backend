@@ -42,9 +42,6 @@ router.post("/", async function (req, res, next) {
       throw new BadRequestError(errs);
     }
 
-    const result = await uploadFile(req.body.file);
-    console.log("S3 response", result);
-
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
   } catch (err) {
