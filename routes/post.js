@@ -13,7 +13,14 @@ const postUpdateSchema = require("../schemas/postUpdate.json");
 const postSearchSchema = require("../schemas/postSearch.json");
 const router = express.Router({ mergeParams: true });
 
-const {uploadFile} = require('../aws/api');
+//////////////////////////////////////////////////////////////////////////////////////
+
+const {uploadFile,getFileStream} = require('../aws/api');
+// const upload = require("../common");
+// const fs = require("fs");
+// const util = require("util");
+// const unlinkFile = util.promisify(fs.unlink);
+
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 
@@ -42,14 +49,8 @@ router.post("/", async function (req, res, next) {
       throw new BadRequestError(errs);
     }
 
-    // console.log('in post and the file is========================================',req.file);
-
-    
-
-
-    uploadFile(req.file);
-    req.body.image = req.file.name;
-
+    const result = await uploadFile(req.body.file);
+    console.log("S3 response", result);
 
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
