@@ -34,7 +34,7 @@ router.get("/", async function (req, res, next) {
 
 //////////////////////////////////////////////////////////////////////////////////////CREATE POST
 
-router.post("/",upload.single("image"), async function (req, res, next) {
+router.post("/", async function (req, res, next) {
   try {
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
