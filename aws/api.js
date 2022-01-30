@@ -13,6 +13,7 @@ const s3 = new S3({
   secretAccessKey,
 });
 
+
 // UPLOAD FILE TO S3
 function uploadFile(file) {
   const fileStream = fs.createReadStream(file.path);
