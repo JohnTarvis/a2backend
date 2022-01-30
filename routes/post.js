@@ -15,7 +15,7 @@ const router = express.Router({ mergeParams: true });
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-const {uploadFile,getFileStream} = require('../aws/api');
+// const {uploadFile,getFileStream} = require('../aws/api');
 // const upload = require("../common");
 // const fs = require("fs");
 // const util = require("util");
@@ -49,8 +49,8 @@ router.post("/", async function (req, res, next) {
       throw new BadRequestError(errs);
     }
 
-    const result = await uploadFile(req.body.file);
-    console.log("S3 response", result);
+    // const result = await uploadFile(req.body.file);
+    // console.log("S3 response", result);
 
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
