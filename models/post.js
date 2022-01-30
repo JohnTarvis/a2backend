@@ -19,7 +19,8 @@ class Post {
    * admin_post - whether or not it was posted by an admin
    * */ 
   
-
+  ////////////////////////////////////////////////////////////////////////CREATE 
+    
   static async create({ poster_handle,
                         post_date,
                         post_body,
@@ -66,6 +67,7 @@ class Post {
    * find post by selected criteria
    * */
 
+////////////////////////////////////////////////////////////////////////FIND ALL
 
   static async findAll(searchFilters = {}) {
     let query = `SELECT poster_id,
@@ -91,8 +93,7 @@ class Post {
     return postsRes.rows;
   }
 
-
-  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////GET WITH
 
   static async getWith(searchFilters = {}){
     let query = `SELECT poster_id,
@@ -123,17 +124,10 @@ class Post {
 
     query += " ORDER BY id ";
 
-    // console.log('filterNames======================',filterNames);
-    // console.log('query============================',query);
-    // console.log('whereValues======================',whereValues);
-    // console.log('whereExpressions=================',whereExpressions);
-
     const results = await db.query(query,whereValues);
     return results.rows;
     
   }
-
-
 
   static async get(handle) {
     const postRes = await db.query(
@@ -152,10 +146,10 @@ class Post {
     const post = postRes.rows[0];
     if (!post) throw new NotFoundError(`No post: ${handle}`);
     post.posts = postsRes.rows;
-    // console.log('---------------------------------get');
     return post;
   }
 
+  ////////////////////////////////////////////////////////////////////////REMOVE
 
   static async remove(handle) {
     const result = await db.query(
@@ -176,110 +170,3 @@ class Post {
 
 
 module.exports = Post;
-
-
-
-// static async findAllx(searchFilters = {}) {
-//   let query = `SELECT poster_id,
-//                       post_date,
-//                       post_body,
-//                       post_subject,
-//                       post_tags,
-//                       admin_post,
-//                       image,
-//                       id
-//                FROM posts`;
-//   let whereExpressions = [];
-//   let queryValues = [];
-
-//   const { poster_id,
-//           post_date,
-//           post_body,
-//           post_subject,
-//           post_tags,
-//           admin_post} = searchFilters;
-
-//   if (poster_id) {
-//     queryValues.push(`%${poster_id}%`);
-//   }
-//   if (post_date) {
-//     queryValues.push(`%${post_date}%`);
-//   }
-//   if (post_body) {
-//     queryValues.push(`%${post_body}%`);
-//   }
-//   if (post_subject) {
-//     queryValues.push(`%${post_subject}%`);
-//   }
-//   if (post_tags) {
-//     queryValues.push(`%${post_tags}%`);
-//   }
-//   if (admin_post) {
-//     queryValues.push(`%${admin_post}%`);
-//   }
-//   // if (image){
-//   //   queryValues.push(`%${image}%`);
-//   // }
-  
-//   if (whereExpressions.length > 0) {
-//     query += " WHERE " + whereExpressions.join(" AND ");
-//   }
-
-//   // Finalize query and return results
-
-//   query += " ORDER BY id";
-//   const postsRes = await db.query(query, queryValues);
-//   return postsRes.rows;
-// }
-
-
-
-
-  /** Given a post id, return data about post.
-   *
-   * Returns { handle, name, description, numEmployees, logoUrl, jobs }
-   *   where jobs is [{ id, title, salary, equity }, ...]
-   *
-   * Throws NotFoundError if not found.
-   **/
-
-  // const result = await db.query(
-  //   `INSERT INTO posts
-  //    (poster_id, post_date, post_body, post_subject, post_tags, admin_post)
-  //    VALUES ($1, $2, $3, $4, $5, $6)
-  //    RETURNING poster_id,post_date,post_body,post_subject,post_tags,admin_post`,
-
-  // static async get(handle) {
-  //   const postRes = await db.query(
-  //         `SELECT poster_id,
-  //                 poster_handle,
-  //                 post_date,
-  //                 post_body,
-  //                 post_subject,
-  //                 post_tags,
-  //                 admin_post,
-  //                 image,
-  //                 id
-  //          FROM posts
-  //          WHERE handle = $1`,
-  //       [handle]);
-  //   const post = postRes.rows[0];
-  //   if (!post) throw new NotFoundError(`No post: ${handle}`);
-  //   const postsRes = await db.query(
-  //         `SELECT id, 
-  //                 poster_id, 
-  //                 poster_handle, 
-  //                 post_body, 
-  //                 post_subject, 
-  //                 post_tags, 
-  //                 post_date, 
-  //                 admin_post,
-  //                 image,
-  //          FROM posts
-  //          WHERE poster_handle = $1
-  //          ORDER BY id`,
-  //       [handle],
-  //   );
-  //   post.posts = postsRes.rows;
-  //   return post;
-  // }
