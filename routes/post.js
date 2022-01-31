@@ -2,24 +2,24 @@
 
 /** Routes for posts. */
 
-const jsonschema = require("jsonschema");
+// const jsonschema = require("jsonschema");
 
-const express = require("express");
-const { BadRequestError } = require("../expressError");
-const { ensureAdmin } = require("../middleware/auth");
-const Post = require("../models/post");
-const postNewSchema = require("../schemas/postNew.json");
-const postUpdateSchema = require("../schemas/postUpdate.json");
-const postSearchSchema = require("../schemas/postSearch.json");
-const router = express.Router({ mergeParams: true });
+// const express = require("express");
+// const { BadRequestError } = require("../expressError");
+// const { ensureAdmin } = require("../middleware/auth");
+// const Post = require("../models/post");
+// const postNewSchema = require("../schemas/postNew.json");
+// const postUpdateSchema = require("../schemas/postUpdate.json");
+// const postSearchSchema = require("../schemas/postSearch.json");
+// const router = express.Router({ mergeParams: true });
 
-//////////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////////
 
-const {uploadFile,getFileStream} = require('../aws/api');
-const upload = require("../common");
-const fs = require("fs");
-const util = require("util");
-const unlinkFile = util.promisify(fs.unlink);
+// const {uploadFile,getFileStream} = require('../aws/api');
+// const upload = require("../common");
+// const fs = require("fs");
+// const util = require("util");
+// const unlinkFile = util.promisify(fs.unlink);
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 

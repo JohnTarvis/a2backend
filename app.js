@@ -1,18 +1,18 @@
 "use strict";
 
-const express = require("express");
-const cors = require("cors");
+// const express = require("express");
+// const cors = require("cors");
 
-const { NotFoundError } = require("./expressError");
+// const { NotFoundError } = require("./expressError");
 
-const { authenticateJWT } = require("./middleware/auth");
+// const { authenticateJWT } = require("./middleware/auth");
 
-const authRoutes = require('./routes/auth');
-const anonRoutes = require('./routes/anon');
-const postRoutes = require('./routes/post');
-const tagRoutes = require('./routes/tag');
+// const authRoutes = require('./routes/auth');
+// const anonRoutes = require('./routes/anon');
+// const postRoutes = require('./routes/post');
+// const tagRoutes = require('./routes/tag');
 
-const morgan = require("morgan");
+// const morgan = require("morgan");
 
 const app = express();
 
