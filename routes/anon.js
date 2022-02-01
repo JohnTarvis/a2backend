@@ -2,16 +2,16 @@
 
 /** Routes for anons. */
 
-// const jsonschema = require("jsonschema");
+const jsonschema = require("jsonschema");
 
-// const express = require("express");
-// const { ensureCorrectAnonOrAdmin, ensureAdmin } = require("../middleware/auth");
-// const { BadRequestError } = require("../expressError");
-// const Anon = require("../models/anon");
-// const { createToken } = require("../helpers/tokens");
-// const anonNewSchema = require("../schemas/anonNew.json");
-// const anonUpdateSchema = require("../schemas/anonUpdate.json");
-// const anonSearchSchema = require("../schemas/anonSearch.json");
+const express = require("express");
+const { ensureCorrectAnonOrAdmin, ensureAdmin } = require("../middleware/auth");
+const { BadRequestError } = require("../expressError");
+const Anon = require("../models/anon");
+const { createToken } = require("../helpers/tokens");
+const anonNewSchema = require("../schemas/anonNew.json");
+const anonUpdateSchema = require("../schemas/anonUpdate.json");
+const anonSearchSchema = require("../schemas/anonSearch.json");
 
 
 const router = express.Router();

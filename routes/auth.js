@@ -2,15 +2,15 @@
 
 /** Routes for authentication. */
 
-// const jsonschema = require("jsonschema");
+const jsonschema = require("jsonschema");
 
-// const Anon = require("../models/anon");
-// const express = require("express");
-// const router = new express.Router();
-// const { createToken } = require("../helpers/tokens");
-// const anonAuthSchema = require("../schemas/anonAuth.json");
-// const anonRegisterSchema = require("../schemas/anonRegister.json");
-// const { BadRequestError } = require("../expressError");
+const Anon = require("../models/anon");
+const express = require("express");
+const router = new express.Router();
+const { createToken } = require("../helpers/tokens");
+const anonAuthSchema = require("../schemas/anonAuth.json");
+const anonRegisterSchema = require("../schemas/anonRegister.json");
+const { BadRequestError } = require("../expressError");
 
 
 function getClientAddress(req) {
