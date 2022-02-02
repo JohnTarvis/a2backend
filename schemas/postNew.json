@@ -38,7 +38,6 @@
   "required": [
     "post_body",
     "post_subject",
-    "post_tags",
-    "poster_handle"
+    "post_tags"
   ]
 }
