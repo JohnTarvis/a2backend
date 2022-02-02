@@ -62,6 +62,7 @@ class Post {
     const post = result.rows[0];
     return post;
   }
+  
 
   /** 
    * find post by selected criteria
