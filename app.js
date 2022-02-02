@@ -26,11 +26,11 @@ app.use("/anon", anonRoutes);
 app.use("/post", postRoutes);
 app.use( "/tag", tagRoutes);
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
