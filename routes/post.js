@@ -15,45 +15,30 @@ const router = express.Router({ mergeParams: true });
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-// const aws = require('aws-sdk');
-// const multer = require('multer');
-// const multerS3 = require('multer-s3');
-// aws.config.update({
-//     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-//     accessKeyId: process.env.S3_ACCESS_KEY_ID,
-//     region: 'us-west-1'
-// });
-// const s3 = new aws.S3();
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+aws.config.update({
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    region: 'us-west-1'
+});
+const s3 = new aws.S3();
 
-// var upload = multer({
-//   storage: multerS3({
-//       s3: s3,
-//       bucket: 'a2uploads',
-//       key: function (req, file, cb) {
-//           console.log(file);
-//           cb(null, file.originalname); //use Date.now() for unique file keys
-//       }
-//   })
-// });
+var upload = multer({
+  storage: multerS3({
+      s3: s3,
+      bucket: 'a2uploads',
+      key: function (req, file, cb) {
+          console.log(file);
+          cb(null, file.originalname); //use Date.now() for unique file keys
+      }
+  })
+});
 
 //////////////////////////////////////////////////////////////////////////////////////CREATE POST
 
-// router.post("/",upload.array('upl',1), async function (req, res, next) {
-//   try {
-//     const validator = jsonschema.validate(req.body, postNewSchema);
-//     if (!validator.valid) {
-//       const errs = validator.errors.map(e => e.stack);
-//       throw new BadRequestError(errs);
-//     }
-    
-//     const newPost = await Post.create(req.body);
-//     return res.status(201).json({ newPost });
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
-
-router.post("/", async function (req, res, next) {
+router.post("/",upload.array('upl',1), async function (req, res, next) {
   try {
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
@@ -67,6 +52,21 @@ router.post("/", async function (req, res, next) {
     return next(err);
   }
 });
+
+// router.post("/", async function (req, res, next) {
+//   try {
+//     const validator = jsonschema.validate(req.body, postNewSchema);
+//     if (!validator.valid) {
+//       const errs = validator.errors.map(e => e.stack);
+//       throw new BadRequestError(errs);
+//     }
+    
+//     const newPost = await Post.create(req.body);
+//     return res.status(201).json({ newPost });
+//   } catch (err) {
+//     return next(err);
+//   }
+// });
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 
