@@ -13,14 +13,45 @@ const postUpdateSchema = require("../schemas/postUpdate.json");
 const postSearchSchema = require("../schemas/postSearch.json");
 const router = express.Router({ mergeParams: true });
 
-//////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
 
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+aws.config.update({
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    region: 'us-west-1'
+});
+const s3 = new aws.S3();
 
-// const {uploadFile,getFileStream} = require('../aws/api');
-// const upload = require("../common");
-// const fs = require("fs");
-// const util = require("util");
-// const unlinkFile = util.promisify(fs.unlink);
+var upload = multer({
+  storage: multerS3({
+      s3: s3,
+      bucket: 'a2uploads',
+      key: function (req, file, cb) {
+          console.log(file);
+          cb(null, file.originalname); //use Date.now() for unique file keys
+      }
+  })
+});
+
+//////////////////////////////////////////////////////////////////////////////////////CREATE POST
+
+router.post("/",upload.array('upl',1), async function (req, res, next) {
+  try {
+    const validator = jsonschema.validate(req.body, postNewSchema);
+    if (!validator.valid) {
+      const errs = validator.errors.map(e => e.stack);
+      throw new BadRequestError(errs);
+    }
+    
+    const newPost = await Post.create(req.body);
+    return res.status(201).json({ newPost });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 
@@ -34,69 +65,6 @@ router.get("/", async function (req, res, next) {
     }
     const posts = await Post.getWith(q);
     return res.json({ posts });
-  } catch (err) {
-    return next(err);
-  }
-});
-
-//////////////////////////////////////////////////////////////////////////////////////CREATE POST
-
-// var multer = require('multer');
-// var AWS = require('aws-sdk');
-
-// var accessKeyId =  process.env.S3_ACCESS_KEY_ID;
-// var secretAccessKey = process.env.S3_SECRET_ACCESS_KEY;
-
-// AWS.config.update({
-//     accessKeyId: accessKeyId,
-//     secretAccessKey: secretAccessKey
-// });
-
-
-// var s3 = new AWS.S3();
-
-// app.use(multer({ // https://github.com/expressjs/multer
-//   dest: './public/uploads/', 
-//   limits : { fileSize:100000 },
-//   rename: function (fieldname, filename) {
-//     return filename.replace(/\W+/g, '-').toLowerCase();
-//   },
-//   onFileUploadData: function (file, data, req, res) {
-//     // file : { fieldname, originalname, name, encoding, mimetype, path, extension, size, truncated, buffer }
-//     var params = {
-//       Bucket: 'a2uploads',
-//       Key: file.name,
-//       Body: data
-//     };
-
-//     s3.putObject(params, function (perr, pres) {
-//       if (perr) {
-//         console.log("Error uploading data: ", perr);
-//       } else {
-//         console.log("Successfully uploaded data to myBucket/myKey");
-//       }
-//     });
-//   }
-// }));
-
-// app.post('/upload', function(req, res){
-//     if(req.files.image !== undefined){ // `image` is the field name from your form
-//         res.redirect("/uploads"); // success
-//     }else{
-//         res.send("error, no file chosen");
-//     }
-// });
-
-router.post("/", async function (req, res, next) {
-  try {
-    const validator = jsonschema.validate(req.body, postNewSchema);
-    if (!validator.valid) {
-      const errs = validator.errors.map(e => e.stack);
-      throw new BadRequestError(errs);
-    }
-    
-    const newPost = await Post.create(req.body);
-    return res.status(201).json({ newPost });
   } catch (err) {
     return next(err);
   }
