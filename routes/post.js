@@ -53,20 +53,20 @@ const router = express.Router({ mergeParams: true });
 //   }
 // });
 
-// router.post("/", async function (req, res, next) {
-//   try {
-//     const validator = jsonschema.validate(req.body, postNewSchema);
-//     if (!validator.valid) {
-//       const errs = validator.errors.map(e => e.stack);
-//       throw new BadRequestError(errs);
-//     }
+router.post("/", async function (req, res, next) {
+  try {
+    const validator = jsonschema.validate(req.body, postNewSchema);
+    if (!validator.valid) {
+      const errs = validator.errors.map(e => e.stack);
+      throw new BadRequestError(errs);
+    }
     
-//     const newPost = await Post.create(req.body);
-//     return res.status(201).json({ newPost });
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
+    const newPost = await Post.create(req.body);
+    return res.status(201).json({ newPost });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 
