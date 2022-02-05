@@ -15,25 +15,25 @@ const router = express.Router({ mergeParams: true });
 
 // ///////////////////////////////////////////////////////////////////////////////////////
 
-// const aws = require('aws-sdk');
-// const multer = require('multer');
-// const multerS3 = require('multer-s3');
-// aws.config.update({
-//     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-//     accessKeyId: process.env.S3_ACCESS_KEY_ID,
-//     region: 'us-west-1'
-// });
-// const s3 = new aws.S3();
-// var upload = multer({
-//   storage: multerS3({
-//       s3: s3,
-//       bucket: 'a2uploads',
-//       key: function (req, file, cb) {
-//           console.log(file);
-//           cb(null, file.originalname); //use Date.now() for unique file keys
-//       }
-//   })
-// });
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+aws.config.update({
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    region: 'us-west-1'
+});
+const s3 = new aws.S3();
+var upload = multer({
+  storage: multerS3({
+      s3: s3,
+      bucket: 'a2uploads',
+      key: function (req, file, cb) {
+          console.log(file);
+          cb(null, file.originalname); //use Date.now() for unique file keys
+      }
+  })
+});
 // app.post("/",upload.array('upl',1), async function (req, res, next) {
 //   try {
 //     const validator = jsonschema.validate(req.body, postNewSchema);
