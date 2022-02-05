@@ -50,15 +50,15 @@ app.use(function (err, req, res, next) {
 
 ////////////////////////////////////////////////////////////////////
 
-// const aws = require('aws-sdk');
-// const multer = require('multer');
-// const multerS3 = require('multer-s3');
-// aws.config.update({
-//     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-//     accessKeyId: process.env.S3_ACCESS_KEY_ID,
-//     region: 'us-west-1'
-// });
-// const s3 = new aws.S3();
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+aws.config.update({
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    region: 'us-west-1'
+});
+const s3 = new aws.S3();
 
 // var upload = multer({
 //   storage: multerS3({
