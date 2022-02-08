@@ -15,7 +15,9 @@ const tagRoutes = require('./routes/tag');
 const morgan = require("morgan");
 
 const app = express();
-app.use(bodyParser.json());
+
+
+// app.use(bodyParser.json());
 
 
 app.use(cors());
