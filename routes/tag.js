@@ -35,7 +35,7 @@ router.get("/", async function (req, res, next) {
 ///-----------------------------------------------------------------------CREATE TAG
 router.post("/", async function (req, res, next) {
     try {
-      console.log('creating tag====================================in tag post');
+      // console.log('creating tag====================================in tag post');
       const validator = jsonschema.validate(req.body, tagNewSchema);
       if (!validator.valid) {
         const errs = validator.errors.map(e => e.stack);
@@ -54,7 +54,7 @@ router.post("/", async function (req, res, next) {
 ///-----------------------------------------------------------------------GET SPECIFIC TAG BY NAME
 router.get("/:tag", async function (req, res, next) {
   try {
-    console.log('starting.........................................');
+    // console.log('starting.........................................');
     const tag = await Tag.get(req.params.tag);
     return res.json({ tag });
   } catch (err) {

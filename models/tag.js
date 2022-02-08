@@ -26,7 +26,7 @@ class Tag {
 ///-----------------------------------------------------------------------CREATE TAG
 static async create(tag) {
 
-  console.log('LOOING FOR TAG AT START');
+  // console.log('LOOING FOR TAG AT START');
   
   tag = tag.tag;
   if(await this.tagExists(tag)){
@@ -52,7 +52,7 @@ static async create(tag) {
 
 ///-----------------------------------------------------------------------CHECK IF TAG EXISTS
 static async tagExists(tag){
-  console.log('looking for tag====================');
+  // console.log('looking for tag====================');
   let query = `SELECT id,
                       tag,
                       searches,
@@ -60,7 +60,7 @@ static async tagExists(tag){
                FROM tags
                WHERE tag = $1`;
   const results = await db.query(query,[tag]);
-  console.log('results====================',results);
+  // console.log('results====================',results);
   return results.length > 0;
 }
 
@@ -78,7 +78,7 @@ static async incrementSearches(tag) {
   if (!result) {
     throw new NotFoundError(`COULD NOT UPDATE - No tag: ${tag}`);
   }
-  console.log('tag found==============================================',result);
+  // console.log('tag found==============================================',result);
   return result;
 }
 
