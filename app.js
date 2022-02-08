@@ -15,6 +15,8 @@ const tagRoutes = require('./routes/tag');
 const morgan = require("morgan");
 
 const app = express();
+app.use(bodyParser.json());
+
 
 app.use(cors());
 app.use(express.json());
@@ -27,7 +29,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.use(bodyParser.json());
 
 
 app.use("/auth", authRoutes);
