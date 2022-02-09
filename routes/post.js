@@ -40,8 +40,8 @@ var upload = multer({
 });
 
 
-router.post("/",upload.array('image',1), async function (req, res, next) {
-  console.log('posting===================================');
+router.post("/",upload.array('upload',1), async function (req, res, next) {
+  // console.log('posting===================================');
   try {
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
