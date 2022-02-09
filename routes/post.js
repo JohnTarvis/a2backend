@@ -15,6 +15,10 @@ const router = express.Router({ mergeParams: true });
 
 // ///////////////////////////////////////////////////////////////////////////////////////
 
+const bodyParser = require('body-parser');
+router.use(bodyParser.json());
+
+
 const aws = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
