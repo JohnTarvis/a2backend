@@ -33,7 +33,7 @@ var upload = multer({
       s3: s3,
       bucket: 'a2uploads',
       key: function (req, file, cb) {
-          console.log(file);
+          console.log('file=======================================',file);
           cb(null, file.originalname); //use Date.now() for unique file keys
       }
   })
@@ -42,8 +42,8 @@ var upload = multer({
 
 router.post("/",upload.array('upload',1), async function (req, res, next) {
   try {
-    console.log('reqbody=====================================',req.body);
-    console.log('requpload===================================',req.body.upload);
+    // console.log('reqbody=====================================',req.body);
+    // console.log('requpload===================================',req.body.upload);
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
       const errs = validator.errors.map(e => e.stack);
