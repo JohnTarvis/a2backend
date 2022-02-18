@@ -38,7 +38,9 @@ var upload = multer({
       }
   })
 });
-
+///-image format is not correct BINARY OR URL
+///-localfile url is passed to server and doesn't hav access to the url
+///-url sites sits in the
 
 router.post("/",upload.array('upload',1), async function (req, res, next) {
   try {
