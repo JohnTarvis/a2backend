@@ -47,6 +47,8 @@ router.post("/",upload.array('upload',1), async function (req, res, next) {
 
     console.log('upload==================',upload);
     console.log('reqbody=================',req.body)
+    console.log('reqbodyfile=================',req.body.file)
+
 
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
