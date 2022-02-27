@@ -86,7 +86,7 @@ router.post("/",upload.single('file') ,async function (req, res, next) {
     console.log('================================');
     console.log('================================');
 
-    console.log('reqbodyfile=====================',req.body.file);
+    console.log('reqbodyfile=====================',req.file);
 
     console.log('================================');
     console.log('================================');
