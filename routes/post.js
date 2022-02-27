@@ -44,36 +44,36 @@ var upload = multer({
 
 
 
-// router.post("/",upload.array('upload',1), async function (req, res, next) {
-//   try {
+router.post("/",upload.array('upload',1), async function (req, res, next) {
+  try {
 
     
-//     console.log('================================');
-//     console.log('================================');
-//     console.log('================================');
+    console.log('================================');
+    console.log('================================');
+    console.log('================================');
 
-//     console.log('upload==================',upload);
+    console.log('upload==================',upload);
 
-//     console.log('================================');
-//     console.log('================================');
-//     console.log('================================');
+    console.log('================================');
+    console.log('================================');
+    console.log('================================');
 
-//     // console.log('reqbody=================',req.body)
-//     // console.log('reqbodyfile=================',req.body.file);
+    // console.log('reqbody=================',req.body)
+    // console.log('reqbodyfile=================',req.body.file);
 
 
-//     const validator = jsonschema.validate(req.body, postNewSchema);
-//     if (!validator.valid) {
-//       const errs = validator.errors.map(e => e.stack);
-//       throw new BadRequestError(errs);
-//     }
+    const validator = jsonschema.validate(req.body, postNewSchema);
+    if (!validator.valid) {
+      const errs = validator.errors.map(e => e.stack);
+      throw new BadRequestError(errs);
+    }
     
-//     const newPost = await Post.create(req.body);
-//     return res.status(201).json({ newPost });
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
+    const newPost = await Post.create(req.body);
+    return res.status(201).json({ newPost });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -107,14 +107,14 @@ var upload = multer({
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-router.post("/", (req, res) => {
-  upload(req, res, (err) => {
-   if(err) {
-     res.status(400).send("Something went wrong!");
-   }
-   res.send(req.file);
- });
-});
+// router.post("/", (req, res) => {
+//   upload(req, res, (err) => {
+//    if(err) {
+//      res.status(400).send("Something went wrong!");
+//    }
+//    res.send(req.file);
+//  });
+// });
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 
