@@ -107,25 +107,13 @@ var upload = multer({
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-router.post("/" ,async function (req, res, next) {
-  try {
-    upload(req,res,(err)=>{
-      if(err){
-        res.status(400).send('error ERROR!');
-      }
-      res.send(req.file);
-    });
-    const validator = jsonschema.validate(req.body, postNewSchema);
-    if (!validator.valid) {
-      const errs = validator.errors.map(e => e.stack);
-      throw new BadRequestError(errs);
-    }
-    
-    const newPost = await Post.create(req.body);
-    return res.status(201).json({ newPost });
-  } catch (err) {
-    return next(err);
-  }
+router.post("/", (req, res) => {
+  upload(req, res, (err) => {
+   if(err) {
+     res.status(400).send("Something went wrong!");
+   }
+   res.send(req.file);
+ });
 });
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST
