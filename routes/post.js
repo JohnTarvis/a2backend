@@ -42,40 +42,8 @@ var upload = multer({
 ///-localfile url is passed to server and doesn't hav access to the url
 ///-url sites sits in the
 
-router.post('/',upload,async function(req,res){
-    try {
-
-    
-    console.log('================================');
-    console.log('================================');
-    console.log('================================');
-
-    console.log('upload==================',upload);
-
-    console.log('================================');
-    console.log('================================');
-    console.log('================================');
-
-    // console.log('reqbody=================',req.body)
-    // console.log('reqbodyfile=================',req.body.file);
-
-
-    const validator = jsonschema.validate(req.body, postNewSchema);
-    if (!validator.valid) {
-      const errs = validator.errors.map(e => e.stack);
-      throw new BadRequestError(errs);
-    }
-    
-    const newPost = await Post.create(req.body);
-    return res.status(201).json({ newPost });
-  } catch (err) {
-    return next(err);
-  }
-
-})
-
-// router.post("/",upload.array('upload',1), async function (req, res, next) {
-//   try {
+// router.post('/',upload,async function(req,res){
+//     try {
 
     
 //     console.log('================================');
@@ -103,7 +71,39 @@ router.post('/',upload,async function(req,res){
 //   } catch (err) {
 //     return next(err);
 //   }
-// });
+
+// })
+
+router.post("/",upload.array('upload',1), async function (req, res, next) {
+  try {
+
+    
+    console.log('================================');
+    console.log('================================');
+    console.log('================================');
+
+    console.log('upload==================',upload);
+
+    console.log('================================');
+    console.log('================================');
+    console.log('================================');
+
+    // console.log('reqbody=================',req.body)
+    // console.log('reqbodyfile=================',req.body.file);
+
+
+    const validator = jsonschema.validate(req.body, postNewSchema);
+    if (!validator.valid) {
+      const errs = validator.errors.map(e => e.stack);
+      throw new BadRequestError(errs);
+    }
+    
+    const newPost = await Post.create(req.body);
+    return res.status(201).json({ newPost });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
