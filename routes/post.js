@@ -51,7 +51,7 @@ router.post("/",upload.single('upload'), async function (req, res, next) {
     console.log('--------------------------------');
     console.log('--------------------------------');
 
-    console.log('uploaded------------------------',req.file);
+    console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',req.file);
 
     console.log('--------------------------------');
     console.log('--------------------------------');
