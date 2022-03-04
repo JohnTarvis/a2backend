@@ -51,12 +51,12 @@ router.post("/",upload.single('upload'), async function (req, res, next) {
     console.log('--------------------------------');
     console.log('--------------------------------');
 
-    console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',req.file);
+    console.log('bodyzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',req.body);
 
     console.log('--------------------------------');
     console.log('--------------------------------');
     console.log('--------------------------------');
-    
+
 
 
     const validator = jsonschema.validate(req.body, postNewSchema);
@@ -64,6 +64,8 @@ router.post("/",upload.single('upload'), async function (req, res, next) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
+
+
     
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
