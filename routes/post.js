@@ -78,31 +78,16 @@ router.post("/",upload.single('upload'), async function (req, res, next) {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 
-// router.post("/",upload.single('file') ,async function (req, res, next) {
-//   try {
+router.post("/test",upload.single('upload'), async function (req, res, next) {
+  try {
 
-//     console.log('================================');
-//     console.log('================================');
-//     console.log('================================');
+    console.log(req.body);
 
-//     console.log('reqbodyfile=====================',req.file);
-
-//     console.log('================================');
-//     console.log('================================');
-//     console.log('================================');
-
-//     const validator = jsonschema.validate(req.body, postNewSchema);
-//     if (!validator.valid) {
-//       const errs = validator.errors.map(e => e.stack);
-//       throw new BadRequestError(errs);
-//     }
     
-//     const newPost = await Post.create(req.body);
-//     return res.status(201).json({ newPost });
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 //////////////////////////////////////////////////////////////////////////////////////
 
