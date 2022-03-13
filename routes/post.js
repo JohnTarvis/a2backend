@@ -55,7 +55,7 @@ router.post("/",upload.single('upload'), async function (req, res, next) {
     // const newPost = await Post.create(req.body);
     // return res.status(201).json({ newPost });
 
-    
+    console.log('trying to upload image and nothing else=====================================');
 
 
   } catch (err) {
