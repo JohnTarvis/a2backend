@@ -47,7 +47,12 @@ var upload = multer({
 router.post("/",upload.single('upload'), async function (req, res, next) {
   try {
 
+    console.log('-----------------------------------------------------------');
+    console.log('-----------------------------------------------------------');
     console.log('post req body=====================================',req.body);
+    console.log('-----------------------------------------------------------');
+    console.log('-----------------------------------------------------------');
+
 
 
     const validator = jsonschema.validate(req.body, postNewSchema);
