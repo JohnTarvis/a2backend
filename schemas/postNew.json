@@ -34,10 +34,5 @@
       "type":"string"
     }
   },
-  "additionalProperties": true,
-  "required": [
-    "post_body",
-    "post_subject",
-    "post_tags"
-  ]
+  "additionalProperties": true
 }
