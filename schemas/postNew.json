@@ -28,7 +28,7 @@
       "type": "boolean"
     },
     "reply_to":{
-      "type":"integer"
+      "type":"string"
     },
     "image":{
       "type":"string"
