@@ -19,50 +19,6 @@ class Post {
    * admin_post - whether or not it was posted by an admin
    * */ 
   
-  ////////////////////////////////////////////////////////////////////////CREATE 
-    
-  // static async create({ poster_handle,
-  //                       post_date,
-  //                       post_body,
-  //                       post_subject,
-  //                       post_tags,
-  //                       admin_post,
-  //                       reply_to,
-  //                       image }) {
-
-  //   const result = await db.query(
-  //         `INSERT INTO posts (poster_handle, 
-  //                             post_date,
-  //                             post_body,
-  //                             post_subject, 
-  //                             post_tags, 
-  //                             admin_post,
-  //                             reply_to,
-  //                             image)
-  //          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-  //          RETURNING  poster_handle,
-  //                     post_date,
-  //                     post_body,
-  //                     post_subject,
-  //                     post_tags,
-  //                     admin_post,
-  //                     reply_to,
-  //                     image`,
-  //       [
-  //         poster_handle,
-  //         post_date,
-  //         post_body,
-  //         post_subject,
-  //         post_tags,
-  //         admin_post,
-  //         reply_to,
-  //         image
-  //       ],
-  //   );
-  //   const post = result.rows[0];
-  //   return post;
-  // }
-
 
   static async create({ 
     poster_handle,
@@ -136,6 +92,32 @@ class Post {
     return postsRes.rows;
   }
 
+  ////////////////////////////////////////////////////////////////////////Get Replies
+
+  static async getReplies(searchFilters = {}) {
+    let query = `SELECT poster_id,
+                        poster_handle,
+                        post_date,
+                        post_body,
+                        post_subject,
+                        post_tags,
+                        admin_post,
+                        image,
+                        id
+                 FROM posts`;
+    let whereExpressions = [];
+    let queryValues = [];
+    for(const filter in searchFilters){
+      queryValues.push(`%${searchFilters[filter]}%`);
+    }
+    if (whereExpressions.length > 0) {
+      query += " WHERE " + whereExpressions.join(" AND ");
+    }
+    query += " ORDER BY id";
+    const postsRes = await db.query(query, queryValues);
+    return postsRes.rows;
+  }
+
   ////////////////////////////////////////////////////////////////////////GET WITH
 
   static async getWith(searchFilters = {}){
@@ -147,7 +129,8 @@ class Post {
                         post_tags,
                         admin_post,
                         image,
-                        id
+                        id,
+                        reply_to
                  FROM posts`;
 
     const whereExpressions = [];
