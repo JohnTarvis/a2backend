@@ -29,6 +29,10 @@ static async create(tag) {
   // console.log('LOOING FOR TAG AT START');
   
   tag = tag.tag;
+
+  console.log('tag.tag===============================',tag);
+
+
   if(await this.tagExists(tag)){
     return await this.incrementSearches(tag);
   }
