@@ -166,12 +166,12 @@ class Anon {
     const anonRes = await db.query(
           `SELECT handle,
                   ip,
-                  birth_time
+                  birth_time,
+                  is_admin
            FROM anons
            WHERE handle = $1`,
         [handle]);
     const anon = anonRes.rows[0];
-    // console.log('==============================anon: ',anon);
     if (!anon){
       throw new NotFoundError(`No anon: ${handle}`);
     } 
