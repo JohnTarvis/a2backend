@@ -172,7 +172,7 @@ class Post {
         [handle]);
     const post = postRes.rows[0];
     if (!post) throw new NotFoundError(`No post: ${handle}`);
-    post.posts = postsRes.rows;
+    post.posts = postRes.rows;
     return post;
   }
 
