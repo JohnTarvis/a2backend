@@ -178,16 +178,15 @@ class Post {
 
   ////////////////////////////////////////////////////////////////////////REMOVE
 
-  static async remove(handle) {
+  static async remove(id) {
     const result = await db.query(
           `DELETE
            FROM posts
-           WHERE handle = $1
-           RETURNING handle`,
-        [handle]);
+           WHERE id = $1`,
+        [id]);
     const post = result.rows[0];
 
-    if (!post) throw new NotFoundError(`No post: ${handle}`);
+    if (!post) throw new NotFoundError(`No post: ${id}`);
   }
 
   static async removeAll(){
