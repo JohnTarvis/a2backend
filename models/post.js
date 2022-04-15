@@ -191,11 +191,12 @@ class Post {
   // }
 
   static async remove(id) {
+    console.log('post id in post.js==========================================',id);
     const result = await db.query(
           `DELETE
            FROM posts
            WHERE id = ${id}`);
-           
+
     const post = result.rows[0];
 
     if (!post) throw new NotFoundError(`No post: ${id}`);
