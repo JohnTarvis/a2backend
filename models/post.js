@@ -179,6 +179,7 @@ class Post {
   ////////////////////////////////////////////////////////////////////////REMOVE
 
   static async remove(id) {
+    console.log('post id in post.js===================================',id);
     const result = await db.query(
           `DELETE
            FROM posts
@@ -196,3 +197,4 @@ class Post {
 
 
 module.exports = Post;
+
