@@ -178,17 +178,29 @@ class Post {
 
   ////////////////////////////////////////////////////////////////////////REMOVE
 
+  // static async remove(id) {
+  //   console.log('post id in post.js==========================================',id);
+  //   const result = await db.query(
+  //         `DELETE
+  //          FROM posts
+  //          WHERE id = $1`,
+  //       [id]);
+  //   const post = result.rows[0];
+
+  //   if (!post) throw new NotFoundError(`No post: ${id}`);
+  // }
+
   static async remove(id) {
-    console.log('post id in post.js==========================================',id);
     const result = await db.query(
           `DELETE
            FROM posts
-           WHERE id = $1`,
-        [id]);
+           WHERE id = ${id}`);
+           
     const post = result.rows[0];
 
     if (!post) throw new NotFoundError(`No post: ${id}`);
   }
+
 
   static async removeAll(){
     const query = await db.query('TRUNCATE TABLE posts CASCADE');
