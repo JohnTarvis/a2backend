@@ -136,7 +136,7 @@ router.patch("/:id", ensureAdmin, async function (req, res, next) {
 router.delete("/:id", ensureAdmin, async function (req, res, next) {
   try {
 
-    console.log('id in post.js==================================',req.params.id);
+    // console.log('id in post.js==================================',req.params.id);
 
     await Post.remove(req.params.id);
     return res.json({ deleted: +req.params.id });
