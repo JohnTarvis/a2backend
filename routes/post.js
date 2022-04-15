@@ -13,7 +13,7 @@ const postUpdateSchema = require("../schemas/postUpdate.json");
 const postSearchSchema = require("../schemas/postSearch.json");
 const router = express.Router({ mergeParams: true });
 
-// ///////////////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////////////0
 
 const bodyParser = require('body-parser');
 router.use(bodyParser.json());
@@ -135,6 +135,9 @@ router.patch("/:id", ensureAdmin, async function (req, res, next) {
 
 router.delete("/:id", ensureAdmin, async function (req, res, next) {
   try {
+
+    console.log('id in post.js==================================',req.params.id);
+
     await Post.remove(req.params.id);
     return res.json({ deleted: +req.params.id });
   } catch (err) {
