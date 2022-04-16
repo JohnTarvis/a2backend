@@ -49,6 +49,7 @@ function ensureLoggedIn(req, res, next) {
  */
 
 function ensureAdmin(req, res, next) {
+  console.log('req==========================================',req);
   console.log('res.locals.anon==============================',res.locals.anon);
   try {
     if (!res.locals.anon || !res.locals.anon.is_admin) {
