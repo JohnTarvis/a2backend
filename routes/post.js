@@ -131,6 +131,7 @@ router.patch("/:id", ensureAdmin, async function (req, res, next) {
   }
 });
 
+
 //////////////////////////////////////////////////////////////////////////////////////DELETE POST BY ID
 
 router.delete("/:id", ensureAdmin, async function (req, res, next) {
