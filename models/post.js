@@ -197,9 +197,9 @@ class Post {
            FROM posts
            WHERE id = ${id}`);
 
-    const post = result.rows[0];
+    // const post = result.rows[0];
 
-    if (!post) throw new NotFoundError(`No post: ${id}`);
+    // if (!post) throw new NotFoundError(`No post: ${id}`);
   }
 
 
