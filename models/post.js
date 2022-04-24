@@ -196,6 +196,7 @@ class Post {
           `DELETE
            FROM posts
            WHERE id = ${id}`);
+           
 
     // const post = result.rows[0];
 
