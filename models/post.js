@@ -198,7 +198,6 @@ class Post {
            WHERE id = ${id}`);
            
 
-           
 
 
   }
