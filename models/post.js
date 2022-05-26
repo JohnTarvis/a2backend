@@ -70,6 +70,7 @@ class Post {
 ////////////////////////////////////////////////////////////////////////FIND ALL
 
   static async findAll(searchFilters = {}) {
+    console.log('FINDALL==============================================');
     let query = `SELECT poster_id,
                         poster_handle,
                         post_date,
