@@ -94,6 +94,9 @@ router.post("/test",upload.single('upload'), async function (req, res, next) {
 //////////////////////////////////////////////////////////////////////////////////////GET POST
 
 router.get("/", async function (req, res, next) {
+
+  console.log('NOT BROKEN DDDDDD===============================');
+
   const q = req.query;
   try {
     const validator = jsonschema.validate(q, postSearchSchema);
