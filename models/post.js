@@ -157,7 +157,7 @@ class Post {
     
   }
 
-  ///
+  //////
 
   static async get(handle) {
     const postRes = await db.query(
