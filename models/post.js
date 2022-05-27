@@ -122,42 +122,42 @@ class Post {
 
   ////////////////////////////////////////////////////////////////////////GET WITH
 
-  // static async getWith(searchFilters = {}){
-  //   let query = `SELECT poster_id,
-  //                       poster_handle,
-  //                       post_date,
-  //                       post_body,
-  //                       post_subject,
-  //                       post_tags,
-  //                       admin_post,
-  //                       image,
-  //                       id,
-  //                       reply_to
-  //                FROM posts`;
+  static async getWith(searchFilters = {}){
+    let query = `SELECT poster_id,
+                        poster_handle,
+                        post_date,
+                        post_body,
+                        post_subject,
+                        post_tags,
+                        admin_post,
+                        image,
+                        id,
+                        reply_to
+                 FROM posts`;
 
-  //   const whereExpressions = [];
-  //   const whereValues = [];
-  //   const filterNames = Object.keys(searchFilters);
+    const whereExpressions = [];
+    const whereValues = [];
+    const filterNames = Object.keys(searchFilters);
 
-  //   if (searchFilters){
-  //     for(const filterName of filterNames){
-  //       const whereValue = searchFilters[filterName];
-  //       whereValues.push(`${whereValue}`);
-  //       whereExpressions.push(`${filterName} = $${whereValues.length}`);
-  //     }
-  //     if(whereExpressions.length > 0){
-  //       query += " WHERE " + whereExpressions.join(" AND ");
-  //     }
-  //   }
+    if (searchFilters){
+      for(const filterName of filterNames){
+        const whereValue = searchFilters[filterName];
+        whereValues.push(`${whereValue}`);
+        whereExpressions.push(`${filterName} = $${whereValues.length}`);
+      }
+      if(whereExpressions.length > 0){
+        query += " WHERE " + whereExpressions.join(" AND ");
+      }
+    }
 
-  //   query += " ORDER BY id ";
+    query += " ORDER BY id ";
 
-  //   const results = await db.query(query,whereValues);
-  //   return results.rows;
+    const results = await db.query(query,whereValues);
+    return results.rows;
     
-  // }
+  }
 
-  //////
+  ////////
 
   static async get(handle) {
     const postRes = await db.query(
