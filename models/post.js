@@ -194,14 +194,16 @@ class Post {
   // }
 
   static async remove(id) {
-    console.log('post id in post.js==========================================',id);
+
     const result = await db.query(
           `DELETE
            FROM posts
            WHERE id = ${id}`);
-           
 
-
+    const resultReplies = await db.query(
+          `DELETE 
+           FROM posts
+           WHERE reply_to=${id}`);
 
   }
 
