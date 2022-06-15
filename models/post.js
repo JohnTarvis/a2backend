@@ -19,9 +19,10 @@ class Post {
    * admin_post - whether or not it was posted by an admin
    * */ 
   
-  
+
 
   static async create({ 
+    poster_ip,
     poster_handle,
     post_body,
     post_subject,
@@ -29,37 +30,45 @@ class Post {
     admin_post,
     reply_to,
     image }) {
+      
+      const isBanned = await db.query(
 
-    const result = await db.query(
-      `INSERT INTO posts (
-                poster_handle, 
-                post_body,
-                post_subject, 
-                post_tags, 
-                admin_post,
-                reply_to,
-                image)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
-      RETURNING  
-        poster_handle,
-        post_body,
-        post_subject,
-        post_tags,
-        admin_post,
-        reply_to,
-        image`,
-      [
-        poster_handle,
-        post_body,
-        post_subject,
-        post_tags,
-        admin_post,
-        reply_to,
-        image
-      ],
-    );
-    const post = result.rows[0];
-    return post;
+        `SELECT * FROM banned_list WHERE handle = ${poster_handle}`
+
+      );      
+
+      const result = await db.query(
+        `INSERT INTO posts (
+                  poster_handle, 
+                  post_body,
+                  post_subject, 
+                  post_tags, 
+                  admin_post,
+                  reply_to,
+                  image)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        RETURNING  
+          poster_handle,
+          post_body,
+          post_subject,
+          post_tags,
+          admin_post,
+          reply_to,
+          image`,
+        [
+          poster_handle,
+          post_body,
+          post_subject,
+          post_tags,
+          admin_post,
+          reply_to,
+          image
+        ],
+      );
+      const post = result.rows[0];
+      return post;
+
+
 }
   
 

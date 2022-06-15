@@ -38,11 +38,10 @@ var upload = multer({
       }
   })
 });
+
 ///-image format is not correct BINARY OR URL
 ///-localfile url is passed to server and doesn't hav access to the url
 ///-url sites sits in the
-
-
 
 router.post("/",upload.single('upload'), async function (req, res, next) {
   try {
@@ -99,7 +98,7 @@ router.get("/", async function (req, res, next) {
   } catch (err) {
     return next(err);
   }
-  
+
 });
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST BY ID
