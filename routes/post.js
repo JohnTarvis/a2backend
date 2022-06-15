@@ -46,7 +46,6 @@ var upload = multer({
 
 router.post("/",upload.single('upload'), async function (req, res, next) {
   try {
-
     const validator = jsonschema.validate(req.body, postNewSchema);
     if (!validator.valid) {
       const errs = validator.errors.map(e => e.stack);
@@ -60,25 +59,18 @@ router.post("/",upload.single('upload'), async function (req, res, next) {
   }
 });
 
-
-
-/////
-
-
-
 ///////////////////////////////////////////////////////////////////////////////////////
 
+// router.post("/test",upload.single('upload'), async function (req, res, next) {
+//   try {
 
-router.post("/test",upload.single('upload'), async function (req, res, next) {
-  try {
-
-    console.log(req.body);
+//     console.log(req.body);
 
     
-  } catch (err) {
-    return next(err);
-  }
-});
+//   } catch (err) {
+//     return next(err);
+//   }
+// });
 
 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -95,8 +87,6 @@ router.post("/test",upload.single('upload'), async function (req, res, next) {
 
 router.get("/", async function (req, res, next) {
 
-  console.log('NOT BROKEN DDDDDD===============================');
-
   const q = req.query;
   try {
     const validator = jsonschema.validate(q, postSearchSchema);
@@ -109,6 +99,7 @@ router.get("/", async function (req, res, next) {
   } catch (err) {
     return next(err);
   }
+  
 });
 
 //////////////////////////////////////////////////////////////////////////////////////GET POST BY ID

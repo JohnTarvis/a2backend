@@ -28,7 +28,6 @@ app.use(function(req, res, next) {
 });
 
 
-
 app.use("/auth", authRoutes);
 app.use("/anon", anonRoutes);
 app.use("/post", postRoutes);
