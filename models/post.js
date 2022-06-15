@@ -31,7 +31,7 @@ class Post {
     reply_to,
     image }) {
 
-      console.log('posterip===========================================',poster_ip);
+      console.log('poster  ip===========================================',poster_ip);
       
       const isBanned = await db.query(
 

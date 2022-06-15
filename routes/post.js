@@ -52,7 +52,9 @@ router.post("/",upload.single('upload'), async function (req, res, next) {
     }
 
     // console.log('reqip=======================================',req.ip);
-    req.body.ip = req.ip;
+    req.body.poster_ip = req.ip;
+
+    console.log('reqbody========================================',req.body);
 
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
