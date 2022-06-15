@@ -53,6 +53,7 @@ router.post("/token", async function (req, res, next) {
  * Authorization required: none
  */
 
+
 router.post("/register", async function (req, res, next) {
 
   const regData = {
