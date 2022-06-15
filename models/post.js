@@ -30,13 +30,15 @@ class Post {
     admin_post,
     reply_to,
     image }) {
+
+      console.log('posterip===========================================',poster_ip);
       
       const isBanned = await db.query(
 
         `SELECT * FROM banned_list WHERE handle = '${poster_handle}' `
 
       );      
-      
+
 
       const result = await db.query(
         `INSERT INTO posts (

@@ -51,7 +51,8 @@ router.post("/",upload.single('upload'), async function (req, res, next) {
       throw new BadRequestError(errs);
     }
 
-    console.log('reqip=======================================',req.ip);
+    // console.log('reqip=======================================',req.ip);
+    req.body.ip = req.ip;
 
     const newPost = await Post.create(req.body);
     return res.status(201).json({ newPost });
