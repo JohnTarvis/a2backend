@@ -33,7 +33,7 @@ class Post {
       
       const isBanned = await db.query(
 
-        `SELECT * FROM banned_list WHERE handle = ${poster_handle}`
+        `SELECT * FROM banned_list WHERE handle = "${poster_handle}"`
 
       );      
 
