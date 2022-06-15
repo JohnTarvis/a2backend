@@ -13,11 +13,10 @@ const postUpdateSchema = require("../schemas/postUpdate.json");
 const postSearchSchema = require("../schemas/postSearch.json");
 const router = express.Router({ mergeParams: true });
 
-// ///////////////////////////////////////////////////////////////////////////////////////0
+///////////////////////////////////////////////////////////////////////////////////////////0
 
 const bodyParser = require('body-parser');
 router.use(bodyParser.json());
-
 
 const aws = require('aws-sdk');
 const multer = require('multer');
@@ -51,7 +50,6 @@ router.post("/",upload.single('upload'), async function (req, res, next) {
       throw new BadRequestError(errs);
     }
 
-    // console.log('reqip=======================================',req.ip);
     req.body.poster_ip = req.ip;
 
     console.log('reqbody========================================',req.body);
