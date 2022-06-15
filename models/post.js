@@ -36,6 +36,7 @@ class Post {
         `SELECT * FROM banned_list WHERE handle = '${poster_handle}' `
 
       );      
+      
 
       const result = await db.query(
         `INSERT INTO posts (
