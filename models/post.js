@@ -33,14 +33,17 @@ class Post {
 
       // console.log('poster  ip===========================================',poster_ip);
       
-      const isBanned = await db.query(
+      const checkBan = await db.query(
         `SELECT * FROM banned_list WHERE handle = '${poster_handle}' OR ip = '${poster_ip}' `
       );      
 
       // console.log('isBanned???????????????????????????????????????????????????????',isBanned);
 
-      if(!!isBanned.rows.length != 0){
-        console.log('-------------------------------------banned------------------------------------------');
+      const isBanned = checkBan.rows.length > 0;
+
+      if(isBanned){
+        console.log('-------------------------------------banned----------------------------------------------');
+        return {banned:true,posts:null};
       } else {
         console.log('-------------------------------------NOT banned------------------------------------------');
       }
